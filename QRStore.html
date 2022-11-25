@@ -9,14 +9,14 @@
       .itemListContainer {
         display: flex;
         flex-direction: row;
-        border: 1px solid black;
+        /*border: 1px solid black;*/
       }
 
       .descContainer {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
-        border: 1px solid black ;
+        border-bottom: 1px solid black ;
         width: fit-content;
 
         margin: 25px;
@@ -35,7 +35,8 @@
 
     <script>
       function generateQR(id,name) {
-        return "https://chart.googleapis.com/chart?cht=qr&chl=bcs;"+id+";"+name+"&chs=160x160&chld=L|0"
+        const new_name = name.replace(" ","%20")
+        return "https://chart.googleapis.com/chart?cht=qr&chl=bcs;"+id+";"+new_name+"&chs=160x160&chld=L|0"
       }
 
       async function generateItems() {
@@ -56,7 +57,7 @@
 
           let img = document.createElement("img")
           img.alt = "item image"
-          img.src = generateQR(item.id)
+          img.src = generateQR(item.id, item.name)
 
           desc.appendChild(span)
           desc.appendChild(img)
@@ -72,6 +73,8 @@
   </head>
   <body>
     <main>
+      <h1>QR Store</h1>
+      <span> Scan the items you want! </span>
       <div id="items" class="itemListContainer">
       </div>
     </main>
